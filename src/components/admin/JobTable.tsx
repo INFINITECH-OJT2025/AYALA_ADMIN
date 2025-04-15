@@ -279,7 +279,7 @@ export default function JobTable() {
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-[#18181a]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <p>
@@ -338,7 +338,7 @@ export default function JobTable() {
       {/* Edit Job Modal */}
       {editJob && (
         <Dialog open={!!editJob} onOpenChange={() => setEditJob(null)}>
-          <DialogContent className="max-w-3xl overflow-y-auto max-h-[90vh]">
+          <DialogContent className="max-w-3xl overflow-y-auto max-h-[90vh] bg-white dark:bg-[#18181a]">
             <DialogHeader>
               <DialogTitle>Edit Job</DialogTitle>
             </DialogHeader>
@@ -355,6 +355,7 @@ export default function JobTable() {
                     value={editForm.title || ""}
                     onChange={handleEditChange}
                     required
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -367,6 +368,7 @@ export default function JobTable() {
                     name="seniority_level"
                     value={editForm.seniority_level || ""}
                     onChange={handleEditChange}
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
               </div>
@@ -382,6 +384,7 @@ export default function JobTable() {
                     value={editForm.location || ""}
                     onChange={handleEditChange}
                     required
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -395,6 +398,7 @@ export default function JobTable() {
                     value={editForm.type || ""}
                     onChange={handleEditChange}
                     required
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -410,6 +414,7 @@ export default function JobTable() {
                     value={editForm.slots || ""}
                     onChange={handleEditChange}
                     required
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -423,6 +428,7 @@ export default function JobTable() {
                     value={editForm.category || ""}
                     onChange={handleEditChange}
                     required
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -435,8 +441,10 @@ export default function JobTable() {
                     name="salary"
                     value={editForm.salary || ""}
                     onChange={handleEditChange}
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
+
 
                 {/* Deadline */}
                 <div>
@@ -449,6 +457,7 @@ export default function JobTable() {
                     min={new Date().toISOString().split("T")[0]} // ✅ disables past dates
                     value={editForm.deadline || ""}
                     onChange={handleEditChange}
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
               </div>
@@ -465,6 +474,7 @@ export default function JobTable() {
                     value={editForm.description || ""}
                     onChange={handleEditChange}
                     required
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -477,6 +487,7 @@ export default function JobTable() {
                     name="qualification"
                     value={editForm.qualification || ""}
                     onChange={handleEditChange}
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -485,9 +496,10 @@ export default function JobTable() {
                     Job Function
                   </label>
                   <Textarea
-                    name="qualification"
+                    name="job_function"
                     value={editForm.job_function || ""}
                     onChange={handleEditChange}
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
 
@@ -516,6 +528,7 @@ export default function JobTable() {
 
                   <Input
                     type="file"
+                    className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) {

@@ -355,205 +355,200 @@ export default function PropertyList() {
     <div className="container">
       <h1 className="text-2xl font-bold mb-2">Property Listings</h1>
 
-        {/* Header Actions */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
-          <div className="flex flex-wrap gap-3">
-            {/* Create Listing Button */}
-            <Button variant="success" onClick={() => setIsDialogOpen(true)}>
-              <Plus className="w-5 h-5" />
-              Create Listing
-            </Button>
-            {/* Filter Buttons */}
-            <Button
-              variant={filter === "all" ? "default" : "outline"}
-              onClick={() => setFilter("all")}
-            >
-              <List className="w-5 h-5 mr-2" />
-              All Listings
-            </Button>
-            <Button
-              variant={filter === "pending" ? "default" : "outline"}
-              onClick={() => setFilter("pending")}
-            >
-              <Hourglass className="w-5 h-5 mr-2" />
-              Pending
-            </Button>
-            <Button
-              variant={filter === "approved" ? "default" : "outline"}
-              onClick={() => setFilter("approved")}
-            >
-              <CheckCircle className="w-5 h-5 mr-2" />
-              Approved
-            </Button>
-            <Button
-              variant={filter === "rejected" ? "default" : "outline"}
-              onClick={() => setFilter("rejected")}
-            >
-              <XCircle className="w-5 h-5 mr-2" />
-              Rejected
-            </Button>
-          </div>
-
-          <div className="flex justify-between gap-2">
-            <Input
-              type="text"
-              placeholder="Search by property name or location..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-64"
-            />
-            <Button onClick={() => exportToPDF(properties)} variant="default">
-              <Download />
-              Export to PDF
-            </Button>
-          </div>
+      {/* Header Actions */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
+        <div className="flex flex-wrap gap-3">
+          {/* Create Listing Button */}
+          <Button variant="success" onClick={() => setIsDialogOpen(true)}>
+            <Plus className="w-5 h-5" />
+            Create Listing
+          </Button>
+          {/* Filter Buttons */}
+          <Button
+            variant={filter === "all" ? "default" : "outline"}
+            onClick={() => setFilter("all")}
+          >
+            <List className="w-5 h-5 mr-2" />
+            All Listings
+          </Button>
+          <Button
+            variant={filter === "pending" ? "default" : "outline"}
+            onClick={() => setFilter("pending")}
+          >
+            <Hourglass className="w-5 h-5 mr-2" />
+            Pending
+          </Button>
+          <Button
+            variant={filter === "approved" ? "default" : "outline"}
+            onClick={() => setFilter("approved")}
+          >
+            <CheckCircle className="w-5 h-5 mr-2" />
+            Approved
+          </Button>
+          <Button
+            variant={filter === "rejected" ? "default" : "outline"}
+            onClick={() => setFilter("rejected")}
+          >
+            <XCircle className="w-5 h-5 mr-2" />
+            Rejected
+          </Button>
         </div>
 
-        <CreateListingDialog
-          isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
-        />
+        <div className="flex justify-between gap-2">
+          <Input
+            type="text"
+            placeholder="Search by property name or location..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-64"
+          />
+          <Button onClick={() => exportToPDF(properties)} variant="default">
+            <Download />
+            Export to PDF
+          </Button>
+        </div>
+      </div>
 
-        {/* Property Table */}
-        <CardContent>
-          {loading ? (
-            <div className="space-y-3">
-              <Skeleton className="h-8 w-full" />
-              <Skeleton className="h-6 w-full" />
-              <Skeleton className="h-6 w-full" />
-              <Skeleton className="h-6 w-full" />
-              <Skeleton className="h-6 w-full" />
-            </div>
-          ) : (
-            <Table className="min-w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>No.</TableHead>
-                  <TableHead>First Name</TableHead>
-                  <TableHead>Last Name</TableHead>
-                  <TableHead>Type of Listing</TableHead>
-                  <TableHead>Property Name</TableHead>
-                  <TableHead>Unit Type</TableHead>
-                  <TableHead>Unit Status</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {currentProperties.length > 0 ? (
-                  currentProperties
-                    .slice()
-                    .map((property, index) => (
-                      <TableRow key={property.id}>
-                        <TableCell className="whitespace-nowrap px-2 font-semibold">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell className="whitespace-nowrap px-2">
-                          {property.first_name}
-                        </TableCell>
-                        <TableCell className="whitespace-nowrap px-2">
-                          {property.last_name}
-                        </TableCell>
-                        <TableCell>{property.type_of_listing}</TableCell>
-                        <TableCell>{property.property_name}</TableCell>
-                        <TableCell>{property.unit_type}</TableCell>
-                        <TableCell>{property.unit_status}</TableCell>
-                        <TableCell>{property.location}</TableCell>
-                        <TableCell>
-                          ₱
-                          {parseFloat(property.price).toLocaleString("en-PH", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </TableCell>
-                        <TableCell>{property.status}</TableCell>
-                        <TableCell className="whitespace-nowrap px-2">
-                          <Button
-                            variant="secondary"
-                            size="icon"
-                            onClick={() => handleViewProperty(property)}
-                          >
-                            <Eye className="w-5 h-5" />
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            size="icon"
-                            onClick={() => confirmDelete(property.id)}
-                            className="ml-2"
-                          >
-                            <Trash2 className="w-5 h-5" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={11}
-                      className="text-center text-gray-500"
-                    >
-                      No properties found.
+      <CreateListingDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+      />
+
+      {/* Property Table */}
+      <CardContent>
+        {loading ? (
+          <div className="space-y-3">
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-6 w-full" />
+          </div>
+        ) : (
+          <Table className="min-w-full">
+            <TableHeader>
+              <TableRow>
+                <TableHead>No.</TableHead>
+                <TableHead>First Name</TableHead>
+                <TableHead>Last Name</TableHead>
+                <TableHead>Type of Listing</TableHead>
+                <TableHead>Property Name</TableHead>
+                <TableHead>Unit Type</TableHead>
+                <TableHead>Unit Status</TableHead>
+                <TableHead>Location</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentProperties.length > 0 ? (
+                currentProperties.slice().map((property, index) => (
+                  <TableRow key={property.id}>
+                    <TableCell className="whitespace-nowrap px-2">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-2">
+                      {property.first_name}
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-2">
+                      {property.last_name}
+                    </TableCell>
+                    <TableCell>{property.type_of_listing}</TableCell>
+                    <TableCell>{property.property_name}</TableCell>
+                    <TableCell>{property.unit_type}</TableCell>
+                    <TableCell>{property.unit_status}</TableCell>
+                    <TableCell>{property.location}</TableCell>
+                    <TableCell>
+                      ₱
+                      {parseFloat(property.price).toLocaleString("en-PH", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </TableCell>
+                    <TableCell>{property.status}</TableCell>
+                    <TableCell className="whitespace-nowrap px-2">
+                      <Button
+                        variant="secondary"
+                        size="icon"
+                        onClick={() => handleViewProperty(property)}
+                      >
+                        <Eye className="w-5 h-5" />
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => confirmDelete(property.id)}
+                        className="ml-2"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </Button>
                     </TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          )}
-        </CardContent>
-
-        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Confirm Deletion</DialogTitle>
-              <p>
-                Are you sure you want to delete this property? This action
-                cannot be undone.
-              </p>
-            </DialogHeader>
-            <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setIsDeleteDialogOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button variant="destructive" onClick={handleDelete}>
-                Delete
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="flex flex-col md:flex-row justify-between items-center mt-4 p-4 gap-3">
-            <Button
-              variant="outline"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <ChevronLeft className="w-5 h-5" />
-              Previous
-            </Button>
-            <span className="text-gray-700">
-              Page {currentPage} of {totalPages}
-            </span>
-            <Button
-              variant="outline"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          </div>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={11} className="text-center text-gray-500">
+                    No properties found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         )}
+      </CardContent>
+
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="bg-white dark:bg-[#18181a]">
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <p>
+              Are you sure you want to delete this property? This action cannot
+              be undone.
+            </p>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleDelete}>
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex flex-col md:flex-row justify-between items-center mt-4 p-4 gap-3">
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="w-5 h-5" />
+            Previous
+          </Button>
+          <span className="text-gray-700">
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </div>
+      )}
       {/* Dialog for Viewing Property */}
 
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="max-w-3xl h-[75vh] overflow-auto p-6 rounded-lg shadow-lg bg-white dark:bg-gray-900">
+        <DialogContent className="max-w-6xl h-[90vh] overflow-auto p-6 rounded-lg shadow-lg bg-white dark:bg-[#18181a]">
           <DialogHeader className="mb-4">
             <DialogTitle className="text-xl font-semibold flex items-center gap-2 text-gray-800 dark:text-white">
               <Home className="w-6 h-6 text-primary" />
@@ -564,7 +559,7 @@ export default function PropertyList() {
                   selectedProperty?.status === "pending"
                     ? "bg-yellow-200 dark:bg-yellow-600 text-yellow-800 dark:text-yellow-200"
                     : selectedProperty?.status === "approved"
-                    ? "bg-green-200 dark:bg-green-600 text-green-800 dark:text-green-200"
+                    ? "bg-emerald-200 dark:bg-emerald-600 text-emerald-800 dark:text-emerald-200"
                     : "bg-red-200 dark:bg-red-600 text-red-800 dark:text-red-200"
                 }`}
               >
@@ -576,7 +571,7 @@ export default function PropertyList() {
           {selectedProperty && (
             <div className="space-y-6">
               {/* Contact Information */}
-              <div className="grid grid-cols-2 gap-4 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="grid grid-cols-2 gap-4 bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
                 <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <strong>First Name:</strong> {selectedProperty.first_name}
                 </p>
@@ -741,7 +736,7 @@ export default function PropertyList() {
                     selectedProperty.status === "approved" ||
                     loadingStatus[selectedProperty.id]?.approve
                   }
-                  className={`bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded ${
+                  className={`bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded ${
                     selectedProperty.status === "approved"
                       ? "opacity-50 cursor-not-allowed"
                       : ""

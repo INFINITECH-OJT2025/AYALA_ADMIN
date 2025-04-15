@@ -19,7 +19,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Archive, Trash, Inbox, User, ImageIcon, Download } from "lucide-react";
+import {
+  Mail,
+  Archive,
+  Trash,
+  Inbox,
+  User,
+  ImageIcon,
+  Download,
+} from "lucide-react";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -182,11 +190,7 @@ export default function AdminAppointments() {
         14,
         doc.internal.pageSize.height - 10
       ); // Page number
-      doc.text(
-        "AyalaLand",
-        160,
-        doc.internal.pageSize.height - 10
-      ); // Footer text
+      doc.text("AyalaLand", 160, doc.internal.pageSize.height - 10); // Footer text
     };
 
     // Define Table Headers
@@ -325,7 +329,7 @@ export default function AdminAppointments() {
           variant="default"
           className="ml-auto"
         >
-          <Download/>
+          <Download />
           Export to PDF
         </Button>
       </div>
@@ -348,7 +352,7 @@ export default function AdminAppointments() {
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-[#18181a]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <p>
@@ -382,7 +386,7 @@ export default function AdminAppointments() {
             </DialogHeader>
 
             {/* Property Details */}
-            <div className="mb-2 p-3 border rounded bg-gray-100 dark:bg-gray-800">
+            <div className="mb-2 p-3 border rounded bg-gray-200 dark:bg-[#18181a]">
               <h3 className="font-semibold text-gray-700 dark:text-gray-200 flex items-center">
                 <ImageIcon className="w-5 h-5 mr-2 text-gray-600 dark:text-gray-300" />
                 Property Details:
@@ -447,7 +451,7 @@ export default function AdminAppointments() {
             </div>
 
             {/* Client Message */}
-            <div className="mb-2 p-3 border rounded bg-gray-100 dark:bg-gray-800">
+            <div className="mb-2 p-3 border rounded bg-gray-200 dark:bg-[#18181a]">
               <h3 className="font-semibold text-gray-700 dark:text-gray-200 flex items-center">
                 <User className="w-5 h-5 mr-2 text-gray-600 dark:text-gray-300" />
                 Client Message:
@@ -466,6 +470,7 @@ export default function AdminAppointments() {
                 value={replyMessage}
                 onChange={(e) => setReplyMessage(e.target.value)}
                 placeholder="Type your reply message..."
+                className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
               />
             </div>
 

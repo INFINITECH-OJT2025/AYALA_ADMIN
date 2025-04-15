@@ -352,7 +352,7 @@ const columns: ColumnDef<any>[] = [
           </p>
 
           {selectedApplicant?.status === "replied" ? (
-            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md mt-3">
+            <div className="mt-3">
               <p>
                 <b>Scheduled Date:</b>{" "}
                 {selectedApplicant?.schedule_date
@@ -377,7 +377,7 @@ const columns: ColumnDef<any>[] = [
 
               {/* Fetch Scheduled Request Data only if status is "replied" */}
               {scheduleRequest && (
-                <div className="bg-gray-200 dark:bg-gray-800 p-2 rounded-md mt-4">
+                <div className="bg-gray-200 dark:bg-[#18181a] p-2 rounded-md mt-4">
                   <p>
                     <b>Requested Reschedule Date:</b>{" "}
                     {scheduleRequest?.new_schedule
@@ -598,7 +598,7 @@ const columns: ColumnDef<any>[] = [
       </Dialog>
 
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent className="max-w-md w-full">
+        <DialogContent className="max-w-md w-full bg-white dark:bg-[#18181a]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
           </DialogHeader>

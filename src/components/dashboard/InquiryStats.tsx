@@ -22,12 +22,12 @@ import { Skeleton } from "../ui/skeleton";
 
 // Define colors for each inquiry type
 const COLORS = [
-  "#3b82f6",
-  "#facc15",
-  "#ef4444",
-  "#22c55e",
-  "#9333ea",
-  "#14b8a6",
+  "#3b82f6", // blue-500
+  "#facc15", // yellow-400
+  "#ef4444", // red-500
+  "#10B981", // emerald-500 (✅ replaced green)
+  "#9333ea", // purple-600
+  "#14b8a6", // teal-500
 ];
 
 export default function InquiryStats() {

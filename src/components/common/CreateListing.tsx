@@ -143,7 +143,7 @@ export default function CreateListingDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl h-[90vh] overflow-hidden p-4 m-4">
+      <DialogContent className="max-w-5xl h-[90vh] overflow-hidden p-4 m-4 bg-gray-100 dark:bg-[#18181a]">
         <DialogHeader>
           <DialogTitle>Create New Listing</DialogTitle>
         </DialogHeader>
@@ -173,6 +173,7 @@ export default function CreateListingDialog({
                           placeholder="First Name"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -195,6 +196,7 @@ export default function CreateListingDialog({
                           placeholder="Last Name"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -224,6 +226,7 @@ export default function CreateListingDialog({
                           placeholder="Email"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -244,6 +247,7 @@ export default function CreateListingDialog({
                       <FormControl>
                         <Input
                           type="tel"
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                           placeholder="Phone Number"
                           {...field}
                           value={field.value || ""}
@@ -281,6 +285,7 @@ export default function CreateListingDialog({
                           placeholder="Property Name"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -303,6 +308,7 @@ export default function CreateListingDialog({
                           placeholder="Location"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -366,6 +372,7 @@ export default function CreateListingDialog({
 
                         <FormControl>
                           <Input
+                            className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                             placeholder="Price"
                             {...field}
                             value={
@@ -400,6 +407,7 @@ export default function CreateListingDialog({
                           placeholder="Square Meter"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -422,6 +430,7 @@ export default function CreateListingDialog({
                           placeholder="Floor Number"
                           {...field}
                           value={field.value || ""}
+                          className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -445,7 +454,7 @@ export default function CreateListingDialog({
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2">
                           <SelectTrigger>
                             <SelectValue placeholder="Unit Status" />
                           </SelectTrigger>
@@ -480,7 +489,7 @@ export default function CreateListingDialog({
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2">
                           <SelectTrigger>
                             <SelectValue placeholder="Select Parking Availability" />
                           </SelectTrigger>
@@ -511,7 +520,7 @@ export default function CreateListingDialog({
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2">
                           <SelectTrigger>
                             <SelectValue placeholder="Select Unit Type" />
                           </SelectTrigger>
@@ -550,6 +559,7 @@ export default function CreateListingDialog({
                       <Textarea
                         placeholder="Enter property description"
                         {...field}
+                        className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                       />
                     </FormControl>
                     <FormMessage />
@@ -606,7 +616,7 @@ export default function CreateListingDialog({
                   type="file"
                   multiple
                   onChange={handleImageChange}
-                  className="mt-2"
+                  className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2 mt-2"
                 />
                 <div className="mt-4 flex flex-wrap gap-2">
                   {selectedImages.map((image, index) => (

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -24,7 +24,7 @@ const OtherDetails: React.FC<OtherDetailsProps> = ({
     const updatedDetails = [...otherDetails];
     updatedDetails[index] = value;
     setOtherDetails(updatedDetails);
-    console.log(otherDetails)
+    console.log(otherDetails);
   };
 
   const addDetailField = () => {
@@ -45,6 +45,7 @@ const OtherDetails: React.FC<OtherDetailsProps> = ({
             placeholder="Enter detail"
             value={detail}
             onChange={(e) => updateDetailValue(index, e.target.value)}
+            className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
           />
           <button
             type="button"

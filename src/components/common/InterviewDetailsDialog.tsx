@@ -41,7 +41,7 @@ const InterviewDetailsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md p-6 bg-white dark:bg-gray-900 dark:text-gray-100">
+      <DialogContent className="max-w-md p-6 bg-white dark:bg-[#18181a] dark:text-gray-100">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">
             Interview Details

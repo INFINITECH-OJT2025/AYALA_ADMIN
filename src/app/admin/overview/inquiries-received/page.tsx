@@ -182,11 +182,7 @@ export default function AdminInquiries() {
         14,
         doc.internal.pageSize.height - 10
       ); // Page number
-      doc.text(
-        "AyalaLand",
-        160,
-        doc.internal.pageSize.height - 10
-      ); // Footer text
+      doc.text("AyalaLand", 160, doc.internal.pageSize.height - 10); // Footer text
     };
 
     // Define Table Headers
@@ -323,7 +319,7 @@ export default function AdminInquiries() {
           className="ml-auto"
           variant="default"
         >
-          <Download/>
+          <Download />
           Export to PDF
         </Button>
       </div>
@@ -355,7 +351,7 @@ export default function AdminInquiries() {
               <DialogTitle>Reply to Inquiry</DialogTitle>
             </DialogHeader>
             {/* ✅ Display the Client's Message (Handles Long Text) */}
-            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md border border-gray-300 dark:border-gray-700 mb-4">
+            <div className="bg-gray-200 dark:bg-[#18181a] p-4 rounded-md border border-gray-300 dark:border-gray-700 mb-4">
               <div className="flex items-center space-x-2 mb-2">
                 <User className="w-5 h-5 text-gray-700 dark:text-gray-300" />{" "}
                 {/* Profile Icon */}
@@ -365,7 +361,7 @@ export default function AdminInquiries() {
               </div>
 
               {/* ✅ Message Box - Prevents Layout Breaking */}
-              <div className="text-gray-600 dark:text-gray-300 p-2 bg-white dark:bg-gray-900 rounded-md border border-gray-300 dark:border-gray-700 max-h-60 overflow-auto">
+              <div className="text-gray-600 dark:text-gray-300 p-2 bg-gray-200 dark:bg-[#18181a] rounded-md border border-gray-300 dark:border-gray-700 max-h-60 overflow-auto">
                 {selectedInquiry?.message || "No message provided."}
               </div>
             </div>
@@ -378,7 +374,7 @@ export default function AdminInquiries() {
                 value={replyMessage}
                 onChange={(e) => setReplyMessage(e.target.value)}
                 placeholder="Type your reply message..."
-                className="min-h-[120px]" // Adjusts for better typing experience
+                className="min-h-[120px] bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2" // Adjusts for better typing experience
               />
             </div>
             {/* ✅ Buttons */}
@@ -405,7 +401,7 @@ export default function AdminInquiries() {
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-[#18181a]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <p>

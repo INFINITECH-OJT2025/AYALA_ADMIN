@@ -204,7 +204,7 @@ export default function AdminServices() {
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-[#18181a]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <p>

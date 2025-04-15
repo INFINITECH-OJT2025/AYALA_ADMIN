@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { Eye } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
+import { useTheme } from "next-themes";
 
 interface Property {
   name: string;
@@ -35,6 +36,11 @@ export default function PropertyStats() {
   const [stats, setStats] = useState<PropertyStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
+  // Choose stroke color based on theme
+  const axisStrokeColor = isDark ? "#D1D5DB" : "#4B5563"; // gray-300 for dark, gray-700 for ligh
 
   useEffect(() => {
     async function loadStats() {
@@ -69,10 +75,15 @@ export default function PropertyStats() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={barChartData}>
-                <XAxis dataKey="name" stroke="#8884d8" />
-                <YAxis />
+                <XAxis dataKey="name" stroke={axisStrokeColor} />
+                <YAxis stroke={axisStrokeColor} />
                 <Tooltip />
-                <Bar dataKey="value" fill="#3b82f6" radius={[5, 5, 0, 0]} />
+                <Bar
+                  dataKey="value"
+                  fill="#10B981" // emerald-500
+                  radius={[5, 5, 0, 0]}
+                  activeBar={{ fill: "#059669" }} // emerald-600 on hover
+                />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -95,11 +106,13 @@ export default function PropertyStats() {
               <Skeleton className="h-32 w-full rounded-lg" />
             ) : (
               <>
-                <h3 className="text-2xl font-bold">{stats?.mostViewed?.name || "N/A"}</h3>
-                <p className="text-md text-gray-500">
+                <h3 className="text-2xl font-bold">
+                  {stats?.mostViewed?.name || "N/A"}
+                </h3>
+                <p className="text-md text-gray-800 dark:text-gray-300">
                   {stats?.mostViewed?.location || "Unknown Location"}
                 </p>
-                <p className="text-xl font-semibold text-blue-600">
+                <p className="text-xl font-semibold text-emerald-600 dark:text-emerald-500">
                   ₱
                   {stats?.mostViewed?.price
                     ? Number(stats?.mostViewed?.price).toLocaleString("en-PH", {
@@ -110,7 +123,7 @@ export default function PropertyStats() {
                 </p>
                 <div className="flex items-center space-x-2 mt-4">
                   <p className="text-sm font-semibold">Unique Views:</p>
-                  <div className="flex items-center text-gray-600">
+                  <div className="flex items-center font-semibold text-emerald-600 dark:text-emerald-500">
                     {stats?.uniqueViews || 0}
                     <Eye className="w-4 h-4 ml-1" />
                   </div>

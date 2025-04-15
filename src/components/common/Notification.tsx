@@ -220,7 +220,7 @@ export default function Notification() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 30 }}
           transition={{ duration: 0.3 }}
-          className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-900 shadow-lg border border-gray-300 dark:border-gray-700 rounded-lg p-4 z-50 h-max overflow-hidden"
+          className="absolute right-0 mt-2 w-80 bg-white dark:bg-black shadow-lg border border-gray-300 dark:border-gray-700 rounded-lg p-4 z-50 h-max overflow-hidden"
         >
           {/* ✅ Tabs for "All" and "Unread" */}
           <div className="flex border-b pb-2 mb-3">
@@ -246,7 +246,7 @@ export default function Notification() {
                   variant="outline"
                   size="sm"
                   onClick={markAllAsRead}
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-800"
+                  className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-800"
                 >
                   Mark All as Read
                 </Button>
@@ -262,8 +262,9 @@ export default function Notification() {
                   key={notif.id}
                   className={`relative flex items-center p-3 border rounded-lg ${
                     notif.is_read === "read"
-                      ? "bg-gray-100 dark:bg-gray-800"
-                      : "bg-blue-100 dark:bg-blue-900"
+                      ? "bg-gray-100 dark:bg-[#18181a]"
+                      : "bg-emerald-100 dark:bg-emerald-900"
+
                   }`}
                 >
                   {/* ✅ Icon */}

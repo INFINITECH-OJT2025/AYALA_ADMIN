@@ -338,7 +338,7 @@ export default function AdminPropertyInquiries() {
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-[#18181a]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <p>
@@ -371,7 +371,7 @@ export default function AdminPropertyInquiries() {
               <DialogTitle>Reply to Inquiry</DialogTitle>
             </DialogHeader>
 
-            <div className="mb-2 p-3 border rounded bg-gray-100 dark:bg-gray-800">
+            <div className="mb-2 p-3 border rounded bg-gray-200 dark:bg-[#18181a]">
               <h3 className="font-semibold text-gray-700 dark:text-gray-200 flex items-center">
                 <ImageIcon className="w-5 h-5 mr-2 text-gray-600 dark:text-gray-300" />
                 Property Details:
@@ -406,7 +406,7 @@ export default function AdminPropertyInquiries() {
               </p>
             </div>
 
-            <div className="mb-2 p-3 border rounded bg-gray-100 dark:bg-gray-800">
+            <div className="mb-2 p-3 border rounded bg-gray-200 dark:bg-[#18181a]">
               <h3 className="font-semibold text-gray-700 dark:text-gray-200 flex items-center">
                 <User className="w-5 h-5 mr-2 text-gray-600 dark:text-gray-300" />
                 Client Message:
@@ -424,6 +424,7 @@ export default function AdminPropertyInquiries() {
                 value={replyMessage}
                 onChange={(e) => setReplyMessage(e.target.value)}
                 placeholder="Type your reply message..."
+                className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
               />
             </div>
             <div className="flex justify-end space-x-2">

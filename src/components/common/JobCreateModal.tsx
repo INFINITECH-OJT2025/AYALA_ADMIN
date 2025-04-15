@@ -144,7 +144,7 @@ export default function JobCreateModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl overflow-y-auto max-h-[90vh]">
+      <DialogContent className="max-w-3xl overflow-y-auto max-h-[90vh] bg-white dark:bg-[#18181a]">
         <DialogHeader>
           <DialogTitle>Create New Job</DialogTitle>
         </DialogHeader>
@@ -154,7 +154,7 @@ export default function JobCreateModal({
             <Select
               onValueChange={(value) => handleSelectChange("type", value)}
             >
-              <SelectTrigger>
+              <SelectTrigger className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2">
                 <SelectValue placeholder="Select Type" />
               </SelectTrigger>
               <SelectContent>
@@ -169,6 +169,7 @@ export default function JobCreateModal({
               placeholder="Seniority Level"
               value={form.seniority_level}
               onChange={handleChange}
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
             />
 
             <Input
@@ -177,6 +178,7 @@ export default function JobCreateModal({
               value={form.title}
               onChange={handleChange}
               required
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
             />
           </div>
 
@@ -189,12 +191,13 @@ export default function JobCreateModal({
               value={form.slots}
               onChange={handleChange}
               required
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
             />
 
             <Select
               onValueChange={(value) => handleSelectChange("category", value)}
             >
-              <SelectTrigger>
+              <SelectTrigger className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2">
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
               <SelectContent>
@@ -211,6 +214,7 @@ export default function JobCreateModal({
                 placeholder="Add New Category"
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
+                className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
               />
               <Button type="button" onClick={handleNewCategory}>
                 Add
@@ -222,6 +226,7 @@ export default function JobCreateModal({
             <Input
               name="salary"
               placeholder="Starting Salary"
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
               value={
                 form.salary
                   ? new Intl.NumberFormat("en-US").format(
@@ -243,6 +248,7 @@ export default function JobCreateModal({
               min={new Date().toISOString().split("T")[0]}
               value={form.deadline}
               onChange={handleChange}
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
             />
 
             <Input
@@ -251,6 +257,7 @@ export default function JobCreateModal({
               value={form.location}
               onChange={handleChange}
               required
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
             />
           </div>
 
@@ -260,6 +267,7 @@ export default function JobCreateModal({
             value={form.description}
             onChange={handleChange}
             required
+            className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
           />
 
           {/* New Fields */}
@@ -268,6 +276,7 @@ export default function JobCreateModal({
             placeholder="Qualifications"
             value={form.qualification}
             onChange={handleChange}
+            className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
           />
 
           <Textarea
@@ -275,6 +284,7 @@ export default function JobCreateModal({
             placeholder="Job Function"
             value={form.job_function}
             onChange={handleChange}
+            className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
           />
 
           <div className="space-y-2">
@@ -295,10 +305,19 @@ export default function JobCreateModal({
                 </button>
               </div>
             )}
-            <Input type="file" onChange={handleImageChange} />
+            <Input
+              type="file"
+              onChange={handleImageChange}
+              className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
+            />
           </div>
 
-          <Button variant="success" type="submit" className="w-full" disabled={loading}>
+          <Button
+            variant="success"
+            type="submit"
+            className="w-full"
+            disabled={loading}
+          >
             {loading ? "Creating..." : "Create Job"}
           </Button>
         </form>
