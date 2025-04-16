@@ -178,7 +178,7 @@ export default function Notification() {
     if (message.startsWith("new property submitted"))
       return "/admin/overview/listed-properties";
     if (message.startsWith("new job application"))
-      return "/admin/overview/job-applications";
+      return "/admin/overview/job-applicants";
     if (message.startsWith("new property inquiry"))
       return "/admin/Inquiries-Appointments/property-inquiries";
     if (message.startsWith("new appointment booked"))

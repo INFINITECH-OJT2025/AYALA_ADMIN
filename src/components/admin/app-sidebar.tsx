@@ -48,12 +48,16 @@ const data = {
           url: "/admin/overview/dashboard",
         },
         {
-          title: "Listed Properties",
+          title: "Property Listing",
           url: "/admin/overview/listed-properties",
         },
         {
-          title: "Job Applications",
+          title: "Job Listing",
           url: "/admin/overview/job-applications",
+        },
+        {
+          title: "Job Applications",
+          url: "/admin/overview/job-applicants",
         },
         {
           title: "Calendar",

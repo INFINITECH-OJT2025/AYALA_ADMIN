@@ -5,7 +5,19 @@ import { fetchJobs, deleteJob, updateJob } from "@/lib/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable";
 import { Button } from "@/components/ui/button";
-import { Download, Pencil, PlusIcon, Trash } from "lucide-react";
+import {
+  Briefcase,
+  Calendar,
+  Download,
+  LayoutGrid,
+  List,
+  MapPin,
+  Pencil,
+  PlusIcon,
+  Tag,
+  Trash,
+  Users,
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +44,7 @@ import {
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import JobCreateModal from "../common/JobCreateModal";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export default function JobTable() {
   const [jobs, setJobs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -305,35 +318,163 @@ export default function JobTable() {
       <h2 className="text-2xl font-bold mb-4 text-center md:text-left">
         Job Listings
       </h2>
-      <div className="flex justify-between items-center mb-2">
-        {/* Left corner: Create Job button */}
-        <Button onClick={() => setIsModalOpen(true)} variant="success">
-          <PlusIcon />
-          Create Job
-        </Button>
 
-        {/* Right corner: Export to PDF button */}
-        <Button
-          onClick={() => exportToPDF(jobs)}
-          className="ml-auto"
-          variant="default"
-        >
-          <Download />
-          Export to PDF
-        </Button>
-      </div>
+      <Tabs defaultValue="list">
+        <div className="flex justify-between items-center mb-2">
+          {/* Left corner: Create Job button */}
+          <Button onClick={() => setIsModalOpen(true)} variant="success">
+            <PlusIcon />
+            Create Job
+          </Button>
 
-      {loading ? (
-        <div className="flex justify-center items-center">
-          <p className="text-gray-500 dark:text-gray-300">Loading jobs...</p>
+          {/* Right corner: Export to PDF button */}
+          <Button
+            onClick={() => exportToPDF(jobs)}
+            className="ml-auto"
+            variant="default"
+          >
+            <Download />
+            Export to PDF
+          </Button>
         </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <DataTable columns={columns} data={jobs} />
-        </div>
-      )}
+        <TabsList>
+          <TabsTrigger value="list">
+            {" "}
+            <List className="w-5 h-5" />{" "}
+          </TabsTrigger>
+          <TabsTrigger value="grid">
+            {" "}
+            <LayoutGrid className="w-5 h-5" />{" "}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="list">
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <p className="text-gray-500 dark:text-gray-300">
+                Loading jobs...
+              </p>
+            </div>
+          ) : error ? (
+            <p className="text-red-500 text-center">{error}</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <DataTable columns={columns} data={jobs} />
+            </div>
+          )}
+        </TabsContent>
+        <TabsContent value="grid">
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <p className="text-gray-500 dark:text-gray-300">
+                Loading jobs...
+              </p>
+            </div>
+          ) : error ? (
+            <p className="text-red-500 text-center">{error}</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+              {jobs.map((job, index) => {
+                const deadlineDate = job.deadline
+                  ? new Date(job.deadline)
+                  : null;
+                const expirationDate = deadlineDate
+                  ? new Date(
+                      deadlineDate.getFullYear(),
+                      deadlineDate.getMonth(),
+                      deadlineDate.getDate() + 1
+                    )
+                  : null;
+                const isExpired = expirationDate
+                  ? new Date() >= expirationDate
+                  : false;
+
+                return (
+                  <div
+                    key={job.id}
+                    className="bg-white dark:bg-muted border border-border rounded-xl shadow-sm p-4 flex flex-col justify-between"
+                  >
+                    {/* Job Info */}
+                    <div className="space-y-2 mb-4">
+                      <h2 className="text-lg font-semibold text-foreground">
+                        {index + 1}. {job.title}
+                      </h2>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <MapPin className="w-4 h-4" />
+                        <span>{job.location}</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Briefcase className="w-4 h-4" />
+                        <span>{job.type}</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Users className="w-4 h-4" />
+                        <span>{job.slots} slot(s)</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Calendar className="w-4 h-4" />
+                        {job.deadline ? (
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <span
+                                className={
+                                  isExpired ? "text-red-600 font-semibold" : ""
+                                }
+                              >
+                                {format(new Date(job.deadline), "MMMM d, yyyy")}
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <span>
+                                {isExpired
+                                  ? "This job listing has expired."
+                                  : `Expires on ${format(
+                                      expirationDate!,
+                                      "MMMM d, yyyy"
+                                    )} at 12:00 AM`}
+                              </span>
+                            </TooltipContent>
+                          </Tooltip>
+                        ) : (
+                          <span>No deadline</span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Tag className="w-4 h-4" />
+                        <span>{job.category}</span>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex justify-end gap-2 mt-auto pt-4 border-t border-border">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleEdit(job)}
+                      >
+                        <Pencil className="w-4 h-4 mr-1" />
+                        Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => confirmDelete(job.id)}
+                      >
+                        <Trash className="w-4 h-4 mr-1" />
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
 
       {/* Edit Job Modal */}
       {editJob && (
@@ -444,7 +585,6 @@ export default function JobTable() {
                     className="bg-gray-100 dark:bg-[#333333] text-black dark:text-white rounded-md p-2"
                   />
                 </div>
-
 
                 {/* Deadline */}
                 <div>

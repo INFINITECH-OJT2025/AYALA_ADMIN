@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import JobTable from "@/components/admin/JobTable";
-import JobApplicants from "@/components/common/JobApplicants";
 import JobCreateModal from "@/components/common/JobCreateModal";
 
 export default function JobManagement() {
@@ -11,15 +9,7 @@ export default function JobManagement() {
 
   return (
     <>
-      {/* Job Listings Table */}
-        <JobTable />
-
-      {/* Applicants Section */}
-      <div className="mt-6">
-        <JobApplicants />
-      </div>
-
-      {/* Modal for Creating Job */}
+      <JobTable />
       <JobCreateModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </>
   );

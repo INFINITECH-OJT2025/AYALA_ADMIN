@@ -20,12 +20,13 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
-import { Eye, CalendarCheck, X, Trash, Clock, Download } from "lucide-react";
+import { Eye, CalendarCheck, X, Trash, Clock, Download, List, LayoutGrid } from "lucide-react";
 import { toast } from "sonner";
 import useFetchSchedule from "@/hooks/useFetchSchedule";
 import { Badge } from "../ui/badge";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 export default function JobApplicants() {
   const [selectedApplicant, setSelectedApplicant] = useState<any | null>(null);
   const { scheduleRequest } = useFetchSchedule(selectedApplicant?.id || null);
@@ -240,14 +241,14 @@ export default function JobApplicants() {
     // Save PDF
     doc.save("job_applicants_list.pdf");
   };
-const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: "numbering",
-    header: "No.",
-    cell: ({ row }) => {
-      return <span>{row.index + 1}</span>;
+  const columns: ColumnDef<any>[] = [
+    {
+      accessorKey: "numbering",
+      header: "No.",
+      cell: ({ row }) => {
+        return <span>{row.index + 1}</span>;
+      },
     },
-  },
     { accessorKey: "first_name", header: "First Name" },
     { accessorKey: "last_name", header: "Last Name" },
     { accessorKey: "email", header: "Email" },
@@ -312,27 +313,140 @@ const columns: ColumnDef<any>[] = [
 
   return (
     <div className="w-full">
-      <div className="flex justify-between">
+      <div>
         <h2 className="text-2xl font-bold mb-4 text-center md:text-left">
           Job Applicants
         </h2>
+      </div>
+
+      <div className="flex justify-end mb-2">
         <Button onClick={() => exportToPDF(applicants)} variant="default">
-          <Download/>
+          <Download />
           Export to PDF
         </Button>
       </div>
 
-      {loading ? (
-        <p className="text-gray-500 dark:text-gray-300 text-center">
-          Loading applicants...
-        </p>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <DataTable columns={columns} data={applicants} />
-        </div>
-      )}
+      <Tabs defaultValue="list">
+        <TabsList>
+          <TabsTrigger value="list">
+            {" "}
+            <List className="w-5 h-5" />{" "}
+          </TabsTrigger>
+          <TabsTrigger value="grid">
+            {" "}
+            <LayoutGrid className="w-5 h-5" />{" "}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="list">
+          {loading ? (
+            <p className="text-gray-500 dark:text-gray-300 text-center">
+              Loading applicants...
+            </p>
+          ) : error ? (
+            <p className="text-red-500 text-center">{error}</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <DataTable columns={columns} data={applicants} />
+            </div>
+          )}
+        </TabsContent>
+        <TabsContent value="grid">
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <p className="text-gray-500 dark:text-gray-300">
+                Loading applicants...
+              </p>
+            </div>
+          ) : error ? (
+            <p className="text-red-500 text-center">{error}</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+              {applicants.map((applicant, index) => (
+                <div
+                  key={applicant.id}
+                  className="bg-white dark:bg-muted border border-border rounded-xl shadow-sm p-4 flex flex-col justify-between"
+                >
+                  <div className="space-y-2 mb-4">
+                    <h2 className="text-lg font-semibold text-foreground">
+                      {index + 1}. {applicant.first_name} {applicant.last_name}
+                    </h2>
+
+                    <div className="text-sm text-muted-foreground">
+                      <p>
+                        <strong>Email:</strong> {applicant.email}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong> {applicant.phone}
+                      </p>
+                      <p>
+                        <strong>Address:</strong> {applicant.address}
+                      </p>
+                      <p>
+                        <strong>Status:</strong> {applicant.status}
+                      </p>
+                      <p>
+                        <strong>Position:</strong> {applicant.job_title}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Resume + Actions */}
+                  <div className="mt-auto pt-4 border-t border-border space-y-3">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() =>
+                        window.open(applicant.resume_path, "_blank")
+                      }
+                    >
+                      <Eye className="w-4 h-4 mr-1" /> View Resume
+                    </Button>
+
+                    <div className="flex justify-end gap-2 flex-wrap">
+                      <Button
+                        size="sm"
+                        variant="success"
+                        onClick={() => {
+                          setSelectedApplicant(applicant);
+                          setIsScheduleDialogOpen(true);
+                        }}
+                        disabled={applicant.status === "rejected"}
+                      >
+                        <CalendarCheck className="w-4 h-4 mr-1" /> Schedule
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => {
+                          setSelectedApplicant(applicant);
+                          setIsRejectionDialogOpen(true);
+                          setIsScheduleDialogOpen(false);
+                        }}
+                        disabled={applicant.status === "replied"}
+                      >
+                        <X className="w-4 h-4 mr-1" /> Reject
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => {
+                          setSelectedApplicantId(applicant.id);
+                          setIsDeleteDialogOpen(true);
+                        }}
+                      >
+                        <Trash className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
 
       <Dialog
         open={isScheduleDialogOpen}

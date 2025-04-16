@@ -26,6 +26,14 @@ import {
   ChevronRight,
   Banknote,
   Download,
+  LayoutGrid,
+  User,
+  Tag,
+  Building2,
+  Badge,
+  BadgeCheck,
+  Clock,
+  BadgeX,
 } from "lucide-react";
 import { List, Hourglass } from "lucide-react";
 import {
@@ -56,7 +64,7 @@ import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 interface Property {
   id: number;
   first_name: string;
@@ -353,121 +361,245 @@ export default function PropertyList() {
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-2">Property Listings</h1>
-
-      {/* Header Actions */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
-        <div className="flex flex-wrap gap-3">
-          {/* Create Listing Button */}
-          <Button variant="success" onClick={() => setIsDialogOpen(true)}>
-            <Plus className="w-5 h-5" />
-            Create Listing
-          </Button>
-          {/* Filter Buttons */}
-          <Button
-            variant={filter === "all" ? "default" : "outline"}
-            onClick={() => setFilter("all")}
-          >
-            <List className="w-5 h-5 mr-2" />
-            All Listings
-          </Button>
-          <Button
-            variant={filter === "pending" ? "default" : "outline"}
-            onClick={() => setFilter("pending")}
-          >
-            <Hourglass className="w-5 h-5 mr-2" />
-            Pending
-          </Button>
-          <Button
-            variant={filter === "approved" ? "default" : "outline"}
-            onClick={() => setFilter("approved")}
-          >
-            <CheckCircle className="w-5 h-5 mr-2" />
-            Approved
-          </Button>
-          <Button
-            variant={filter === "rejected" ? "default" : "outline"}
-            onClick={() => setFilter("rejected")}
-          >
-            <XCircle className="w-5 h-5 mr-2" />
-            Rejected
-          </Button>
-        </div>
-
-        <div className="flex justify-between gap-2">
-          <Input
-            type="text"
-            placeholder="Search by property name or location..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-64"
-          />
-          <Button onClick={() => exportToPDF(properties)} variant="default">
-            <Download />
-            Export to PDF
-          </Button>
-        </div>
-      </div>
+      <h2 className="text-2xl font-bold mb-4">Property Listings</h2>
 
       <CreateListingDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
       />
 
-      {/* Property Table */}
-      <CardContent>
-        {loading ? (
-          <div className="space-y-3">
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-full" />
+      <Tabs defaultValue="list">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-2 gap-3">
+          <div className="flex flex-wrap gap-3">
+            {/* Create Listing Button */}
+            <Button variant="success" onClick={() => setIsDialogOpen(true)}>
+              <Plus className="w-5 h-5" />
+              Create Listing
+            </Button>
+            {/* Filter Buttons */}
+            <Button
+              variant={filter === "all" ? "default" : "outline"}
+              onClick={() => setFilter("all")}
+            >
+              <List className="w-5 h-5 mr-2" />
+              All Listings
+            </Button>
+            <Button
+              variant={filter === "pending" ? "default" : "outline"}
+              onClick={() => setFilter("pending")}
+            >
+              <Hourglass className="w-5 h-5 mr-2" />
+              Pending
+            </Button>
+            <Button
+              variant={filter === "approved" ? "default" : "outline"}
+              onClick={() => setFilter("approved")}
+            >
+              <CheckCircle className="w-5 h-5 mr-2" />
+              Approved
+            </Button>
+            <Button
+              variant={filter === "rejected" ? "default" : "outline"}
+              onClick={() => setFilter("rejected")}
+            >
+              <XCircle className="w-5 h-5 mr-2" />
+              Rejected
+            </Button>
           </div>
-        ) : (
-          <Table className="min-w-full">
-            <TableHeader>
-              <TableRow>
-                <TableHead>No.</TableHead>
-                <TableHead>First Name</TableHead>
-                <TableHead>Last Name</TableHead>
-                <TableHead>Type of Listing</TableHead>
-                <TableHead>Property Name</TableHead>
-                <TableHead>Unit Type</TableHead>
-                <TableHead>Unit Status</TableHead>
-                <TableHead>Location</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {currentProperties.length > 0 ? (
-                currentProperties.slice().map((property, index) => (
-                  <TableRow key={property.id}>
-                    <TableCell className="whitespace-nowrap px-2">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell className="whitespace-nowrap px-2">
-                      {property.first_name}
-                    </TableCell>
-                    <TableCell className="whitespace-nowrap px-2">
-                      {property.last_name}
-                    </TableCell>
-                    <TableCell>{property.type_of_listing}</TableCell>
-                    <TableCell>{property.property_name}</TableCell>
-                    <TableCell>{property.unit_type}</TableCell>
-                    <TableCell>{property.unit_status}</TableCell>
-                    <TableCell>{property.location}</TableCell>
-                    <TableCell>
-                      ₱
-                      {parseFloat(property.price).toLocaleString("en-PH", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                    </TableCell>
-                    <TableCell>{property.status}</TableCell>
-                    <TableCell className="whitespace-nowrap px-2">
+          <div className="flex justify-between gap-2">
+            <Input
+              type="text"
+              placeholder="Search by property name or location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-64"
+            />
+            <Button onClick={() => exportToPDF(properties)} variant="default">
+              <Download />
+              Export to PDF
+            </Button>
+          </div>
+        </div>
+        <TabsList>
+          <TabsTrigger value="list">
+            {" "}
+            <List className="w-5 h-5" />{" "}
+          </TabsTrigger>
+          <TabsTrigger value="grid">
+            {" "}
+            <LayoutGrid className="w-5 h-5" />{" "}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="list">
+          {/* Property Table */}
+          <CardContent>
+            {loading ? (
+              <div className="space-y-3">
+                <Skeleton className="h-8 w-full" />
+                <Skeleton className="h-6 w-full" />
+                <Skeleton className="h-6 w-full" />
+                <Skeleton className="h-6 w-full" />
+                <Skeleton className="h-6 w-full" />
+              </div>
+            ) : (
+              <Table className="min-w-full">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>No.</TableHead>
+                    <TableHead>First Name</TableHead>
+                    <TableHead>Last Name</TableHead>
+                    <TableHead>Type of Listing</TableHead>
+                    <TableHead>Property Name</TableHead>
+                    <TableHead>Unit Type</TableHead>
+                    <TableHead>Unit Status</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {currentProperties.length > 0 ? (
+                    currentProperties.slice().map((property, index) => (
+                      <TableRow key={property.id}>
+                        <TableCell className="whitespace-nowrap px-2">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap px-2">
+                          {property.first_name}
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap px-2">
+                          {property.last_name}
+                        </TableCell>
+                        <TableCell>{property.type_of_listing}</TableCell>
+                        <TableCell>{property.property_name}</TableCell>
+                        <TableCell>{property.unit_type}</TableCell>
+                        <TableCell>{property.unit_status}</TableCell>
+                        <TableCell>{property.location}</TableCell>
+                        <TableCell>
+                          ₱
+                          {parseFloat(property.price).toLocaleString("en-PH", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </TableCell>
+                        <TableCell>{property.status}</TableCell>
+                        <TableCell className="whitespace-nowrap px-2">
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            onClick={() => handleViewProperty(property)}
+                          >
+                            <Eye className="w-5 h-5" />
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="icon"
+                            onClick={() => confirmDelete(property.id)}
+                            className="ml-2"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={11}
+                        className="text-center text-gray-500"
+                      >
+                        No properties found.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </TabsContent>
+
+        <TabsContent value="grid">
+          <CardContent>
+            {loading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="space-y-3 p-4 border rounded-lg shadow bg-white"
+                  >
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                ))}
+              </div>
+            ) : currentProperties.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {currentProperties.map((property, index) => (
+                  <div
+                    key={property.id}
+                    className="flex flex-col justify-between h-full border rounded-xl p-4 shadow bg-white"
+                  >
+                    <div className="space-y-2 text-sm">
+                      <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                        <Home className="w-5 h-5" /> {index + 1}.{" "}
+                        {property.property_name}
+                      </h3>
+
+                      <p className="flex items-center gap-2">
+                        <User className="w-4 h-4" />
+                        {property.first_name} {property.last_name}
+                      </p>
+
+                      <p className="flex items-center gap-2">
+                        <Tag className="w-4 h-4" />
+                        {property.type_of_listing}
+                      </p>
+
+                      <p className="flex items-center gap-2">
+                        <Layers className="w-4 h-4" />
+                        {property.unit_type}
+                      </p>
+
+                      <p className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4" />
+                        {property.unit_status}
+                      </p>
+
+                      <p className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        {property.location}
+                      </p>
+
+                      <p className="flex items-center gap-2">
+                        <DollarSign className="w-4 h-4" />₱
+                        {parseFloat(property.price).toLocaleString("en-PH", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+
+                      <p className="flex items-center gap-2">
+                        <span
+                          key={property.status}
+                          className={`px-3 py-1 rounded-md text-sm font-medium capitalize transition-all duration-300 ${
+                            property.status === "pending"
+                              ? "bg-yellow-200 dark:bg-yellow-600 text-yellow-800 dark:text-yellow-200"
+                              : property.status === "approved"
+                              ? "bg-emerald-200 dark:bg-emerald-600 text-emerald-800 dark:text-emerald-200"
+                              : "bg-red-200 dark:bg-red-600 text-red-800 dark:text-red-200"
+                          }`}
+                        >
+                          {property.status}
+                        </span>
+                      </p>
+                    </div>
+
+                    {/* Actions fixed at the bottom */}
+                    <div className="mt-4 flex justify-end gap-2">
                       <Button
                         variant="secondary"
                         size="icon"
@@ -479,24 +611,21 @@ export default function PropertyList() {
                         variant="destructive"
                         size="icon"
                         onClick={() => confirmDelete(property.id)}
-                        className="ml-2"
                       >
                         <Trash2 className="w-5 h-5" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={11} className="text-center text-gray-500">
-                    No properties found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        )}
-      </CardContent>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-500 py-6">
+                No properties found.
+              </p>
+            )}
+          </CardContent>
+        </TabsContent>
+      </Tabs>
 
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="bg-white dark:bg-[#18181a]">
