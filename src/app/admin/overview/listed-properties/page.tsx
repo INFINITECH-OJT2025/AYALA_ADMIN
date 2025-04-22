@@ -522,26 +522,43 @@ export default function PropertyList() {
         <TabsContent value="grid">
           <CardContent>
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="space-y-3 p-4 border rounded-lg shadow bg-white"
-                  >
-                    <Skeleton className="h-6 w-3/4" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-5/6" />
-                    <Skeleton className="h-4 w-2/3" />
-                    <Skeleton className="h-4 w-1/2" />
-                  </div>
-                ))}
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-border">
+                  <thead>
+                    <tr>
+                      {[...Array(7)].map((_, i) => (
+                        <th key={i} className="px-6 py-3">
+                          <Skeleton className="h-4 w-24" />
+                        </th>
+                      ))}
+                      <th className="px-6 py-3">
+                        <Skeleton className="h-4 w-16" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {[...Array(6)].map((_, rowIndex) => (
+                      <tr key={rowIndex} className="bg-white dark:bg-[#18181a]">
+                        {[...Array(7)].map((_, colIndex) => (
+                          <td key={colIndex} className="px-6 py-4">
+                            <Skeleton className="h-4 w-full" />
+                          </td>
+                        ))}
+                        <td className="px-6 py-4 flex gap-2">
+                          <Skeleton className="h-9 w-9 rounded-md" />
+                          <Skeleton className="h-9 w-9 rounded-md" />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             ) : currentProperties.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {currentProperties.map((property, index) => (
                   <div
                     key={property.id}
-                    className="flex flex-col justify-between h-full border rounded-xl p-4 shadow bg-white"
+                    className="flex flex-col justify-between h-full border rounded-xl p-4 shadow bg-white dark:bg-[#27272a]"
                   >
                     <div className="space-y-2 text-sm">
                       <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
@@ -599,7 +616,7 @@ export default function PropertyList() {
                     </div>
 
                     {/* Actions fixed at the bottom */}
-                    <div className="mt-4 flex justify-end gap-2">
+                    <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-300 dark:border-gray-600">
                       <Button
                         variant="secondary"
                         size="icon"

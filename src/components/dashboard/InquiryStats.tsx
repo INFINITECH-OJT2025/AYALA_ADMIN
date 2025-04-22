@@ -48,7 +48,7 @@ export default function InquiryStats() {
   const totalInquiries = data.reduce((acc, curr) => acc + curr.count, 0);
 
   return (
-    <Card className="col-span-2 lg:col-span-2 p-2 shadow-lg border dark:bg-[#1f1f21] rounded-xl">
+    <Card className="col-span-2 lg:col-span-2 p-2 shadow-lg border dark:bg-[#27272a] rounded-xl">
       <CardHeader className="items-center pb-0">
         <CardTitle>Most Popular Inquiry Types</CardTitle>
       </CardHeader>

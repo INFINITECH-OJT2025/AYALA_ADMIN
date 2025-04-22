@@ -65,7 +65,7 @@ export default function PropertyStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full p-4">
       {/* ✅ Bar Chart for General Stats */}
-      <Card className="col-span-2 lg:col-span-2 p-2 shadow-lg border dark:bg-[#1f1f21] rounded-xl">
+      <Card className="col-span-2 lg:col-span-2 p-2 shadow-lg border dark:bg-[#27272a] rounded-xl">
         <CardHeader>
           <CardTitle>Property Overview</CardTitle>
         </CardHeader>
@@ -91,7 +91,7 @@ export default function PropertyStats() {
       </Card>
 
       {/* ✅ Most Viewed Property with Image */}
-      <Card className="col-span-2 p-4 shadow-lg border dark:bg-[#1f1f21] rounded-xl transition-all hover:shadow-xl">
+      <Card className="col-span-2 p-4 shadow-lg border dark:bg-[#27272a] rounded-xl transition-all hover:shadow-xl">
         <CardHeader className="text-center pb-4">
           <CardTitle>Most Viewed Property</CardTitle>
         </CardHeader>

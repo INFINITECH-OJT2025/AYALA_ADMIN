@@ -17,7 +17,10 @@ interface ProgramsSectionProps {
   setPrograms: Dispatch<SetStateAction<ProgramItem[]>>;
 }
 
-export default function ProgramsSection({ programs, setPrograms }: ProgramsSectionProps) {
+export default function ProgramsSection({
+  programs,
+  setPrograms,
+}: ProgramsSectionProps) {
   // ✅ Load initial data from localStorage once
   const [loaded, setLoaded] = useState(false);
 
@@ -29,15 +32,18 @@ export default function ProgramsSection({ programs, setPrograms }: ProgramsSecti
       }
     }
   }, []);
-  
+
   useEffect(() => {
     if (programs.length > 0) {
       localStorage.setItem("programs", JSON.stringify(programs));
     }
   }, [programs]);
-  
 
-  const handleProgramChange = (index: number, field: keyof ProgramItem, value: string) => {
+  const handleProgramChange = (
+    index: number,
+    field: keyof ProgramItem,
+    value: string
+  ) => {
     const updated = [...programs];
     updated[index] = { ...updated[index], [field]: value };
     setPrograms(updated);
@@ -71,7 +77,10 @@ export default function ProgramsSection({ programs, setPrograms }: ProgramsSecti
             <FormControl>
               <Input
                 value={program.title}
-                onChange={(e) => handleProgramChange(index, "title", e.target.value)}
+                onChange={(e) =>
+                  handleProgramChange(index, "title", e.target.value)
+                }
+                className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
               />
             </FormControl>
           </FormItem>
@@ -82,7 +91,10 @@ export default function ProgramsSection({ programs, setPrograms }: ProgramsSecti
             <FormControl>
               <Textarea
                 value={program.description}
-                onChange={(e) => handleProgramChange(index, "description", e.target.value)}
+                onChange={(e) =>
+                  handleProgramChange(index, "description", e.target.value)
+                }
+                className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
               />
             </FormControl>
           </FormItem>
@@ -95,14 +107,21 @@ export default function ProgramsSection({ programs, setPrograms }: ProgramsSecti
                 type="url"
                 placeholder="https://example.com"
                 value={program.link}
-                onChange={(e) => handleProgramChange(index, "link", e.target.value)}
+                onChange={(e) =>
+                  handleProgramChange(index, "link", e.target.value)
+                }
+                className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
               />
             </FormControl>
           </FormItem>
         </div>
       ))}
 
-      <Button type="button" onClick={addProgram} className="px-4 py-2 flex items-center gap-2">
+      <Button
+        type="button"
+        onClick={addProgram}
+        className="px-4 py-2 flex items-center gap-2"
+      >
         + Add More Program
       </Button>
     </div>

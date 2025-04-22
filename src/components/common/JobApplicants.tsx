@@ -20,13 +20,23 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
-import { Eye, CalendarCheck, X, Trash, Clock, Download, List, LayoutGrid } from "lucide-react";
+import {
+  Eye,
+  CalendarCheck,
+  X,
+  Trash,
+  Clock,
+  Download,
+  List,
+  LayoutGrid,
+} from "lucide-react";
 import { toast } from "sonner";
 import useFetchSchedule from "@/hooks/useFetchSchedule";
 import { Badge } from "../ui/badge";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Skeleton } from "../ui/skeleton";
 export default function JobApplicants() {
   const [selectedApplicant, setSelectedApplicant] = useState<any | null>(null);
   const { scheduleRequest } = useFetchSchedule(selectedApplicant?.id || null);
@@ -339,9 +349,30 @@ export default function JobApplicants() {
         </TabsList>
         <TabsContent value="list">
           {loading ? (
-            <p className="text-gray-500 dark:text-gray-300 text-center">
-              Loading applicants...
-            </p>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-border">
+                <thead>
+                  <tr>
+                    {[...Array(6)].map((_, i) => (
+                      <th key={i} className="px-6 py-3">
+                        <Skeleton className="h-4 w-24" />
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {[...Array(6)].map((_, rowIndex) => (
+                    <tr key={rowIndex} className="bg-white dark:bg-[#18181a]">
+                      {[...Array(6)].map((_, colIndex) => (
+                        <td key={colIndex} className="px-6 py-4">
+                          <Skeleton className="h-4 w-full" />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : error ? (
             <p className="text-red-500 text-center">{error}</p>
           ) : (
@@ -350,6 +381,7 @@ export default function JobApplicants() {
             </div>
           )}
         </TabsContent>
+
         <TabsContent value="grid">
           {loading ? (
             <div className="flex justify-center items-center">
@@ -364,7 +396,7 @@ export default function JobApplicants() {
               {applicants.map((applicant, index) => (
                 <div
                   key={applicant.id}
-                  className="bg-white dark:bg-muted border border-border rounded-xl shadow-sm p-4 flex flex-col justify-between"
+                  className="bg-white dark:bg-[#27272a] border border-border rounded-xl shadow-sm p-4 flex flex-col justify-between"
                 >
                   <div className="space-y-2 mb-4">
                     <h2 className="text-lg font-semibold text-foreground">
@@ -391,11 +423,10 @@ export default function JobApplicants() {
                   </div>
 
                   {/* Resume + Actions */}
-                  <div className="mt-auto pt-4 border-t border-border space-y-3">
+                  <div className="mt-auto pt-4 border-t border-gray-300 dark:border-gray-600r space-y-3">
                     <Button
                       size="sm"
-                      variant="outline"
-                      className="w-full"
+                      className="w-full bg-gray-800 dark:bg-gray-200"
                       onClick={() =>
                         window.open(applicant.resume_path, "_blank")
                       }

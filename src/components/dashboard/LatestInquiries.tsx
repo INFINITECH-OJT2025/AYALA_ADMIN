@@ -41,7 +41,7 @@ export default function LatestInquiries() {
   }, []);
 
   return (
-    <Card className="col-span-2 lg:col-span-2 p-2 shadow-lg border dark:bg-[#1f1f21] rounded-xl">
+    <Card className="col-span-2 lg:col-span-2 p-2 shadow-lg border dark:bg-[#27272a] rounded-xl">
       <CardHeader className="flex justify-between items-center">
         <CardTitle>Recent Inquiries</CardTitle>
         <Button

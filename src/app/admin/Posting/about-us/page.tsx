@@ -179,7 +179,7 @@ export default function AdminAboutUs() {
                     type="file"
                     accept="image/*, video/*"
                     onChange={handleFileChange}
-                    className="mt-2 border-gray-300 dark:border-gray-600"
+                    className="mt-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -200,7 +200,7 @@ export default function AdminAboutUs() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="border-gray-300 dark:border-gray-600"
+                      className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -219,7 +219,7 @@ export default function AdminAboutUs() {
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="border-gray-300 dark:border-gray-600"
+                      className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -241,7 +241,7 @@ export default function AdminAboutUs() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="border-gray-300 dark:border-gray-600"
+                      className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -260,7 +260,7 @@ export default function AdminAboutUs() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="border-gray-300 dark:border-gray-600"
+                      className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -281,7 +281,7 @@ export default function AdminAboutUs() {
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="border-gray-300 dark:border-gray-600"
+                      className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -300,7 +300,7 @@ export default function AdminAboutUs() {
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="border-gray-300 dark:border-gray-600"
+                      className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
                     />
                   </FormControl>
                   <FormMessage />

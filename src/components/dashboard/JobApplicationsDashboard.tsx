@@ -68,7 +68,7 @@ export default function JobApplicationsDashboard() {
         {cards.map((card, index) => (
           <Card
             key={index}
-            className="shadow-md flex flex-col items-center p-4 dark:bg-[#1f1f21]"
+            className="shadow-md flex flex-col items-center p-4 dark:bg-[#27272a]"
           >
             {loading ? (
               <Skeleton className="h-10 w-10 rounded-full" />

@@ -80,6 +80,7 @@ export default function HistorySection({
                 onChange={(e) =>
                   handleHistoryChange(index, "title", e.target.value)
                 }
+                className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
               />
             </FormControl>
           </FormItem>
@@ -93,6 +94,7 @@ export default function HistorySection({
                 onChange={(e) =>
                   handleHistoryChange(index, "description", e.target.value)
                 }
+                className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
               />
             </FormControl>
           </FormItem>
@@ -122,6 +124,7 @@ export default function HistorySection({
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleHistoryImageChange(index, e)}
+                className="border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#27272a]"
               />
             </FormControl>
           </FormItem>

@@ -80,13 +80,13 @@ export default function AdminFaqPage() {
           placeholder="Question"
           value={form.question}
           onChange={(e) => setForm({ ...form, question: e.target.value })}
-          className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
+          className="bg-gray-100 dark:bg-[#27272a] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
         />
         <Textarea
           placeholder="Answer"
           value={form.answer}
           onChange={(e) => setForm({ ...form, answer: e.target.value })}
-          className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
+          className="bg-gray-100 dark:bg-[#27272a] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
         />
         <div className="flex justify-end">
           <Button onClick={handleSubmit} variant="success">
@@ -102,7 +102,7 @@ export default function AdminFaqPage() {
         {faqs.map((faq) => (
           <div
             key={faq.id}
-            className="border rounded-lg p-4 mb-2 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
+            className="border rounded-lg p-4 mb-2 bg-white dark:bg-[#27272a] border-gray-300 dark:border-gray-600"
           >
             <h3 className="font-semibold text-gray-900 dark:text-white">
               {faq.question}

@@ -23,6 +23,7 @@ import { Mail, Archive, Trash, Inbox, User, Download } from "lucide-react";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AdminInquiries() {
   const [inquiries, setInquiries] = useState<any[]>([]);
@@ -325,10 +326,29 @@ export default function AdminInquiries() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center">
-          <p className="text-gray-500 dark:text-gray-300">
-            Loading inquiries...
-          </p>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-border">
+            <thead>
+              <tr>
+                {[...Array(6)].map((_, i) => (
+                  <th key={i} className="px-6 py-3">
+                    <Skeleton className="h-4 w-24" />
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {[...Array(6)].map((_, rowIndex) => (
+                <tr key={rowIndex} className="bg-white dark:bg-[#18181a]">
+                  {[...Array(6)].map((_, colIndex) => (
+                    <td key={colIndex} className="px-6 py-4">
+                      <Skeleton className="h-4 w-full" />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : error ? (
         <p className="text-red-500 text-center">{error}</p>

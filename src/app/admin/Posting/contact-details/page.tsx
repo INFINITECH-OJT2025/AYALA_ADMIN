@@ -66,9 +66,6 @@ export default function ContactDetails() {
   return (
     <div className="p-6 w-full">
       <h2 className="text-2xl font-bold">Update Contact Details</h2>
-
-      {/* Phone Numbers */}
-
       {/* Email */}
       <div>
         <label className="font-semibold">Email</label>
@@ -78,7 +75,7 @@ export default function ContactDetails() {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1"
+            className="flex-1 bg-gray-100 dark:bg-[#27272a]"
           />
           <div className="w-[82px]"></div>
         </div>
@@ -93,7 +90,7 @@ export default function ContactDetails() {
             placeholder="Enter location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="flex-1"
+            className="flex-1 bg-gray-100 dark:bg-[#27272a]"
           />
           <div className="w-[82px]"></div>
         </div>
@@ -107,7 +104,7 @@ export default function ContactDetails() {
               type="text"
               placeholder="Title (e.g., Sales Inquiry)"
               value={phone.title}
-              className="flex-1"
+              className="flex-1 bg-gray-100 dark:bg-[#27272a]"
               onChange={(e) => {
                 const updatedPhones = [...phones];
                 updatedPhones[index].title = e.target.value;
@@ -118,7 +115,7 @@ export default function ContactDetails() {
               type="text"
               placeholder="Phone Number"
               value={phone.number}
-              className="flex-1"
+              className="flex-1 bg-gray-100 dark:bg-[#27272a]"
               onChange={(e) => {
                 const numericValue = e.target.value.replace(/\D/g, "");
                 if (numericValue.length <= 11) {
@@ -162,7 +159,7 @@ export default function ContactDetails() {
               type="text"
               placeholder="Platform (e.g., Facebook)"
               value={social.platform}
-              className="flex-1"
+              className="flex-1 bg-gray-100 dark:bg-[#27272a]"
               onChange={(e) => {
                 const updatedSocial = [...socialMedia];
                 updatedSocial[index].platform = e.target.value;
@@ -173,7 +170,7 @@ export default function ContactDetails() {
               type="text"
               placeholder="Link (e.g., https://facebook.com/yourpage)"
               value={social.link}
-              className="flex-1"
+              className="flex-1 bg-gray-100 dark:bg-[#27272a]"
               onChange={(e) => {
                 const updatedSocial = [...socialMedia];
                 updatedSocial[index].link = e.target.value;

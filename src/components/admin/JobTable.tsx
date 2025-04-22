@@ -45,6 +45,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import JobCreateModal from "../common/JobCreateModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "../ui/skeleton";
 export default function JobTable() {
   const [jobs, setJobs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -349,10 +350,29 @@ export default function JobTable() {
         </TabsList>
         <TabsContent value="list">
           {loading ? (
-            <div className="flex justify-center items-center">
-              <p className="text-gray-500 dark:text-gray-300">
-                Loading jobs...
-              </p>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-border">
+                <thead>
+                  <tr>
+                    {[...Array(5)].map((_, i) => (
+                      <th key={i} className="px-6 py-3">
+                        <Skeleton className="h-4 w-24" />
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {[...Array(6)].map((_, rowIndex) => (
+                    <tr key={rowIndex} className="bg-white dark:bg-[#18181a]">
+                      {[...Array(5)].map((_, colIndex) => (
+                        <td key={colIndex} className="px-6 py-4">
+                          <Skeleton className="h-4 w-full" />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           ) : error ? (
             <p className="text-red-500 text-center">{error}</p>
@@ -362,6 +382,7 @@ export default function JobTable() {
             </div>
           )}
         </TabsContent>
+
         <TabsContent value="grid">
           {loading ? (
             <div className="flex justify-center items-center">
@@ -391,7 +412,7 @@ export default function JobTable() {
                 return (
                   <div
                     key={job.id}
-                    className="bg-white dark:bg-muted border border-border rounded-xl shadow-sm p-4 flex flex-col justify-between"
+                    className="bg-white dark:bg-[#27272a] border border-border rounded-xl shadow-sm p-4 flex flex-col justify-between"
                   >
                     {/* Job Info */}
                     <div className="space-y-2 mb-4">
@@ -450,7 +471,7 @@ export default function JobTable() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex justify-end gap-2 mt-auto pt-4 border-t border-border">
+                    <div className="flex justify-end gap-2 mt-auto pt-4 border-t border-gray-300 dark:border-gray-600">
                       <Button
                         size="sm"
                         variant="outline"
