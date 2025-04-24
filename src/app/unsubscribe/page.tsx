@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Navbar } from "@/components/landing-page/Navbar";
-import { Footer } from "@/components/landing-page/Footer";
 
 export default function Unsubscribe() {
   const [email, setEmail] = useState("");
@@ -38,7 +36,6 @@ export default function Unsubscribe() {
 
   return (
     <>
-    <Navbar/>
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
       <Card className="w-full max-w-md p-6 shadow-lg">
         <CardHeader>
@@ -66,7 +63,6 @@ export default function Unsubscribe() {
         </CardContent>
       </Card>
     </div>
-    <Footer/>
     </>
   );
 }
