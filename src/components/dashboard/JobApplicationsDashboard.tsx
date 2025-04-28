@@ -50,9 +50,9 @@ export default function JobApplicationsDashboard() {
     {
       title: "Approved",
       key: "approved",
-      color: "text-green-600 dark:text-green-400",
-      icon: <CheckCircle className="text-green-500 w-10 h-10" />,
-    },
+      color: "text-emerald-600 dark:text-emerald-400",
+      icon: <CheckCircle className="text-emerald-500 w-10 h-10" />,
+    },    
     {
       title: "Rejected",
       key: "rejected",
