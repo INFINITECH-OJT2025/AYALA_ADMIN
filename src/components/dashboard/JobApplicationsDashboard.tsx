@@ -47,12 +47,12 @@ export default function JobApplicationsDashboard() {
       color: "text-yellow-600 dark:text-yellow-400",
       icon: <Clock className="text-yellow-500 w-10 h-10" />,
     },
-    {
-      title: "Approved",
-      key: "approved",
-      color: "text-emerald-600 dark:text-emerald-400",
-      icon: <CheckCircle className="text-emerald-500 w-10 h-10" />,
-    },    
+    // {
+    //   title: "Approved",
+    //   key: "approved",
+    //   color: "text-emerald-600 dark:text-emerald-400",
+    //   icon: <CheckCircle className="text-emerald-500 w-10 h-10" />,
+    // },    
     {
       title: "Rejected",
       key: "rejected",
@@ -64,7 +64,7 @@ export default function JobApplicationsDashboard() {
   return (
     <div className="p-4 space-y-6">
       {/* ✅ Dashboard Cards with Skeleton Loading */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card, index) => (
           <Card
             key={index}

@@ -76,7 +76,7 @@ export default function AdminInquiries() {
   // ✅ Handle sending reply
   const handleReply = async () => {
     if (!selectedInquiry) return;
-
+    setLoading(true);
     try {
       await replyInquiries(selectedInquiry.id, replyMessage);
 
@@ -98,6 +98,8 @@ export default function AdminInquiries() {
       toast.error("Failed to send reply", {
         description: "There was an issue sending the reply. Please try again.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
