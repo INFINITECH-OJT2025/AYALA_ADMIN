@@ -33,7 +33,7 @@ export function NavMain({
     }[];
   }[];
 }) {
-  const pathname = usePathname(); // ✅ Get the current page URL
+  const pathname = usePathname();
 
   return (
     <SidebarGroup>
@@ -42,7 +42,7 @@ export function NavMain({
       </SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
-          const isActive = pathname === item.url; // ✅ Check if the page is active
+          const isActive = pathname === item.url;
 
           return (
             <Collapsible

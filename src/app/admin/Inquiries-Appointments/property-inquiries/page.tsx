@@ -113,8 +113,8 @@ export default function AdminPropertyInquiries() {
     if (!selectedInquiry) return;
     try {
       await replyInquiry(selectedInquiry.id, replyMessage);
+      
 
-      // ✅ Update the status to "replied"
       setInquiries((prev) =>
         prev.map((i) =>
           i.id === selectedInquiry.id ? { ...i, status: "replied" } : i
@@ -235,7 +235,11 @@ export default function AdminPropertyInquiries() {
     { accessorKey: "first_name", header: "First Name" },
     { accessorKey: "email", header: "Email" },
     { accessorKey: "phone", header: "Phone" },
-    { accessorKey: "status", header: "Status" },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => <div className="w-24">{row.original.status}</div>,
+    },
     {
       header: "Actions",
       cell: ({ row }) => (
